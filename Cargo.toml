@@ -1,0 +1,17 @@
+[package]
+name = "MakeDynamic"
+version = "0.1.0"
+edition = "2021"
+authors =  ["XPH <2262519065@qq.com>"]
+
+[profile.release]
+opt-level = 3
+debug = false
+lto = "thin"
+strip="symbols"
+
+[dependencies]
+nix = "0.24.1" 
+walkdir = "2.3.2"
+config = "0.13"
+serde = { version = "1.0", features = ["derive"] }
