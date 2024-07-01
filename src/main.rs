@@ -103,25 +103,29 @@ fn definition_dynamic(item: &str, size_kb: &[u64]) {
 }
 
 fn main() {
-    let args = get_command_line_args();
-    if let Some(conf) = find_and_read_config(&args) {
-        remove_and_create_file(&conf.super_size);
+    if nix::unistd::Uid::effective().is_root() {
+        let args = get_command_line_args();
+        if let Some(conf) = find_and_read_config(&args) {
+            remove_and_create_file(&conf.super_size);
 
-        let mut total_size_b: u64 = 0;
+            let mut total_size_b: u64 = 0;
 
-        for item in conf.super_list {
-            let file_path = format!("image/{}.img", item);
-            let size_kb = get_file_size_in_kb(&file_path).expect("Error getting file size");
-            total_size_b += size_kb;
-            if total_size_b > conf.super_size as u64 {
-                println!(
-                    "请检查你的分区大小,他超过了你的super的大小：{}MB",
-                    (total_size_b - conf.super_size) / 1024 / 1024
-                );
-                break;
-            } else {
-                definition_dynamic(&item, &[size_kb]);
+            for item in conf.super_list {
+                let file_path = format!("image/{}.img", item);
+                let size_kb = get_file_size_in_kb(&file_path).expect("Error getting file size");
+                total_size_b += size_kb;
+                if total_size_b > conf.super_size as u64 {
+                    println!(
+                        "请检查你的分区大小,他超过了你的super的大小：{}MB",
+                        (total_size_b - conf.super_size) / 1024 / 1024
+                    );
+                    break;
+                } else {
+                    definition_dynamic(&item, &[size_kb]);
+                }
             }
         }
+    }else {
+        panic!("Run it as root");
     }
 }
