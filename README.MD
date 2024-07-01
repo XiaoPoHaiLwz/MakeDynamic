@@ -84,3 +84,21 @@ MakeDynamic 是一个自动生成 dynamic_partitions_op_list_a 的项目
     --cd your_path
     --sudo ./MakeDynamic args1
     ```
+
+- **文件结构示意图**
+```
+.
+├── device
+│   └── config
+│       └── marble
+│           └── marble.conf
+├── image
+│   ├── mi_ext.img
+│   ├── odm.img
+│   ├── product.img
+│   ├── system_ext.img
+│   ├── system.img
+│   ├── vendor_dlkm.img
+│   └── vendor.img
+└── MakeDynamic
+```
