@@ -74,7 +74,6 @@ fn remove_and_create_file(super_size: &u64) {
     let mut file_path = fs::OpenOptions::new()
         .append(true)
         .create(true)
-        .create(true)
         .open(file_name)
         .expect("Failed to open file");
 
