@@ -1,9 +1,5 @@
 use config;
-use std::env;
-use std::fs;
-use std::io;
-use std::io::Write;
-use std::process;
+use std::{env, fs, io, io::Write, process};
 use walkdir::WalkDir;
 
 struct Conf {
@@ -124,7 +120,7 @@ fn main() {
                 }
             }
         }
-    }else {
+    } else {
         panic!("Run it as root");
     }
 }
